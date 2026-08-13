@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Painel de Controle - Geração de Senhas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+    <div class="card mx-auto" style="max-width: 500px; padding: 20px; text-align: center;">
+        <h3>Painel de Controle - Geração de Senhas</h3>
+
+        <div style="font-size: 48px; font-weight: bold; color: blue; margin: 20px;">
+            <h1 th:text="${currentDisplay}">0</h1>
+        </div>
+
+        <form th:action="@{/atendente/gerar}" method="post">
+            <button type="submit" class="btn btn-success" style="padding: 10px 20px; font-size: 18px;">
+                Gerar Nova Senha
+            </button>
+        </form>
+
+        <hr>
+        <a class="btn btn-link" th:href="@{/display}">Abrir Painel do Guichê (Display)</a>
+    </div>
+</div>
+</body>
+</html>
