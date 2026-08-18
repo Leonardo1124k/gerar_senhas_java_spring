@@ -1,5 +1,259 @@
+/* =========================================================
+   PAINEL DE SENHAS - ESTILO GERAL
+   ========================================================= */
+
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --success: #16a34a;
+    --success-dark: #15803d;
+    --danger: #dc2626;
+    --danger-dark: #b91c1c;
+    --dark: #0f172a;
+    --text: #334155;
+    --muted: #64748b;
+    --background: #f1f5f9;
+    --card: #ffffff;
+    --border: #e2e8f0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.10), transparent 35%),
+        linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+}
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.container {
+    min-height: 100vh;
+}
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
 .card {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.10);
-    border-radius: 0.5rem;
-    background: #fff;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow:
+        0 20px 45px rgba(15, 23, 42, 0.08),
+        0 4px 12px rgba(15, 23, 42, 0.04);
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 24px 50px rgba(15, 23, 42, 0.10),
+        0 6px 15px rgba(15, 23, 42, 0.05);
+}
+
+/* =========================================================
+   TÍTULOS
+   ========================================================= */
+
+h1,
+h2,
+h3,
+h4 {
+    color: var(--dark);
+}
+
+h1 {
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+h3 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+p {
+    color: var(--muted);
+}
+
+/* =========================================================
+   PAINEL DE SENHA
+   ========================================================= */
+
+.senha-display {
+    margin: 25px 0;
+    padding: 25px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border: 1px solid #bfdbfe;
+}
+
+.senha-display h1 {
+    margin: 0;
+    font-size: clamp(64px, 12vw, 100px);
+    line-height: 1;
+    color: var(--primary);
+    font-weight: 800;
+    text-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+}
+
+.senha-display.destaque-danger {
+    background: linear-gradient(135deg, #fef2f2, #fee2e2);
+    border-color: #fecaca;
+}
+
+.senha-display.destaque-danger h1 {
+    color: var(--danger);
+    text-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
+}
+
+/* =========================================================
+   BOTÕES
+   ========================================================= */
+
+.btn {
+    border-radius: 10px;
+    font-weight: 600;
+    padding: 11px 20px;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        background-color 0.15s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-success {
+    background-color: var(--success);
+    border-color: var(--success);
+    box-shadow: 0 5px 14px rgba(22, 163, 74, 0.20);
+}
+
+.btn-success:hover,
+.btn-success:focus {
+    background-color: var(--success-dark);
+    border-color: var(--success-dark);
+    box-shadow: 0 7px 18px rgba(22, 163, 74, 0.28);
+}
+
+.btn-outline-danger {
+    border-width: 2px;
+}
+
+.btn-link {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btn-link:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* =========================================================
+   SEPARADOR
+   ========================================================= */
+
+hr {
+    margin: 28px 0 20px;
+    border: 0;
+    border-top: 1px solid var(--border);
+    opacity: 1;
+}
+
+/* =========================================================
+   HISTÓRICO
+   ========================================================= */
+
+#historico {
+    margin: 15px 0 0;
+    padding: 0;
+}
+
+#historico li {
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+#historico li:hover {
+    background: #f1f5f9;
+    transform: translateX(3px);
+}
+
+/* =========================================================
+   STATUS / TEXTOS AUXILIARES
+   ========================================================= */
+
+.subtitle {
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.section-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+/* =========================================================
+   ANIMAÇÕES
+   ========================================================= */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 576px) {
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .card {
+        border-radius: 14px;
+    }
+
+    .senha-display {
+        padding: 20px 15px;
+    }
+
+    .btn {
+        width: 100%;
+    }
 }

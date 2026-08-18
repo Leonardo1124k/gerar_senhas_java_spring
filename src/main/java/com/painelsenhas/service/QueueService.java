@@ -4,24 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * QueueService - implementacao do padrao de projeto Singleton (GoF classico),
- * espelhando fielmente o QueueService.cs do projeto original em C#.
- *
- * Propositalmente NAO e um @Service/@Component gerenciado pelo container do
- * Spring: o acesso global se da via QueueService.getInstance(), assim como no
- * projeto C# o acesso e feito via QueueService.GetInstance() (com o registro
- * no container de DI comentado no Program.cs).
- *
- * Como um servidor de aplicacao Java e multi-thread por natureza (diferente
- * de um exemplo didatico single-thread), os metodos criticos sao
- * sincronizados para evitar condicoes de corrida ao gerar/consultar senhas
- * simultaneamente a partir de requisicoes concorrentes.
- */
 public class QueueService {
 
     // 1. Atributo estatico privado que guarda a unica instancia da classe
-    private static volatile QueueService uniqueInstance;
+    private static QueueService uniqueInstance;
 
     // Atributos de negocio da classe
     private int currentTicket;
@@ -46,7 +32,7 @@ public class QueueService {
         return uniqueInstance;
     }
 
-    // Metodos de negocio (identicos em semantica ao QueueService.cs)
+    // Metodos de negocio
 
     public synchronized int generateTicket() {
         this.currentTicket = this.currentTicket + 1;

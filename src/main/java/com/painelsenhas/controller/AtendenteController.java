@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * Equivalente a Components/Pages/Atendente.razor ("Painel de Controle -
- * Geracao de Senhas").
- *
  * No Blazor Server, o clique no botao chama GerarNovaSenha() diretamente no
  * servidor via SignalR (rendermode InteractiveServer). Aqui, o equivalente
  * em uma arquitetura MVC classica e um POST de formulario que aciona o
@@ -23,7 +20,7 @@ public class AtendenteController {
 
     @GetMapping
     public String atendente(Model model) {
-        // Acesso global via Singleton classico - igual ao C#:
+        // Acesso global via Singleton classico
         // QueueService.GetInstance().GetLastTicket()
         int currentDisplay = QueueService.getInstance().getLastTicket();
         model.addAttribute("currentDisplay", currentDisplay);
@@ -32,7 +29,7 @@ public class AtendenteController {
 
     @PostMapping("/gerar")
     public String gerarNovaSenha() {
-        // Acesso global via Singleton classico - igual ao C#:
+        // Acesso global via Singleton classico
         // QueueService.GetInstance().GenerateTicket() + CallNext(novaSenha)
         int novaSenha = QueueService.getInstance().generateTicket();
         QueueService.getInstance().callNext(novaSenha);

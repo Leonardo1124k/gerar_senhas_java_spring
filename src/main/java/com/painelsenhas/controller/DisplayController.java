@@ -6,9 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * Equivalente a Components/Pages/Display.razor ("Painel do Guiche -
- * Chamada de Senhas").
- *
  * A pagina carrega o estado inicial via server-side rendering (Thymeleaf) e,
  * a partir dai, se auto-atualiza via JavaScript consultando a
  * SenhaApiController (/api/senha) periodicamente.
