@@ -1,26 +1,27 @@
 package com.painelsenhas.service;
 
+import com.painelsenhas.factory.SenhaCreator;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class QueueService {
 
-    // 1. Atributo estatico privado que guarda a unica instancia da classe
+    // 1. Atributo estático privado que guarda a única instância da classe
     private static QueueService uniqueInstance;
 
-    // Atributos de negocio da classe
-    private int currentTicket;
-    private final List<Integer> calledTickets;
+    // Atributos de negócio da classe alterados para String
+    private String currentTicket;
+    private final List<String> calledTickets;
 
-    // 2. Construtor privado: ninguem fora desta classe pode dar "new QueueService()"
+    // 2. Construtor privado
     private QueueService() {
-        this.currentTicket = 0;
         this.calledTickets = new ArrayList<>();
     }
 
-    // 3. Metodo estatico publico: o unico ponto de acesso global a instancia.
-    // Double-checked locking para inicializacao thread-safe com baixo overhead.
+    // 3. Método estático público: o único ponto de acesso global à instância.
+    // Double-checked locking mantido.
     public static QueueService getInstance() {
         if (uniqueInstance == null) {
             synchronized (QueueService.class) {
@@ -32,34 +33,29 @@ public class QueueService {
         return uniqueInstance;
     }
 
-    // Metodos de negocio
+    // Métodos de negócio atualizados para usar Factory e String
 
-    public synchronized int generateTicket() {
-        this.currentTicket = this.currentTicket + 1;
+    public synchronized String generateTicket(SenhaCreator creator) {
+        // A Factory cria o tipo correto e gera o número do ticket
+        this.currentTicket = creator.criarSenha().gerarTicket();
         return this.currentTicket;
     }
 
-    public synchronized int getLastTicket() {
-        return this.currentTicket;
+    public synchronized String getLastTicket() {
+        return this.currentTicket != null ? this.currentTicket : "-";
     }
 
-    public synchronized void callNext(int ticket) {
+    public synchronized void callNext(String ticket) {
         this.calledTickets.add(ticket);
     }
 
-    public synchronized List<Integer> getHistory() {
-        // Copia defensiva e imutavel: evita que quem consome a lista
-        // altere o estado interno do Singleton por engano.
+    public synchronized List<String> getHistory() {
+        // Cópia defensiva mantida
         return Collections.unmodifiableList(new ArrayList<>(calledTickets));
     }
 
-    /**
-     * Utilitario de apoio, sem equivalente direto no C#: reseta o estado do
-     * painel. Util para testes/demonstracoes sem precisar reiniciar a
-     * aplicacao.
-     */
     public synchronized void reset() {
-        this.currentTicket = 0;
+        this.currentTicket = null;
         this.calledTickets.clear();
     }
 }
