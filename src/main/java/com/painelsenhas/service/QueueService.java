@@ -8,20 +8,19 @@ import java.util.List;
 
 public class QueueService {
 
-    // 1. Atributo estático privado que guarda a única instância da classe
-    private static QueueService uniqueInstance;
+    // Instância única do Singleton.
+    // volatile é necessário para que o double-checked locking seja seguro.
+    private static volatile QueueService uniqueInstance;
 
-    // Atributos de negócio da classe alterados para String
     private String currentTicket;
     private final List<String> calledTickets;
 
-    // 2. Construtor privado
+    // Construtor privado: impede que outras classes criem instâncias diretamente.
     private QueueService() {
         this.calledTickets = new ArrayList<>();
     }
 
-    // 3. Método estático público: o único ponto de acesso global à instância.
-    // Double-checked locking mantido.
+    // Único ponto de acesso à instância do Singleton.
     public static QueueService getInstance() {
         if (uniqueInstance == null) {
             synchronized (QueueService.class) {
@@ -33,10 +32,8 @@ public class QueueService {
         return uniqueInstance;
     }
 
-    // Métodos de negócio atualizados para usar Factory e String
-
+    // Factory Method: recebe um SenhaCreator e gera o tipo de senha correspondente.
     public synchronized String generateTicket(SenhaCreator creator) {
-        // A Factory cria o tipo correto e gera o número do ticket
         this.currentTicket = creator.criarSenha().gerarTicket();
         return this.currentTicket;
     }
@@ -50,7 +47,6 @@ public class QueueService {
     }
 
     public synchronized List<String> getHistory() {
-        // Cópia defensiva mantida
         return Collections.unmodifiableList(new ArrayList<>(calledTickets));
     }
 

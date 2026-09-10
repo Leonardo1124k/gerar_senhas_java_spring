@@ -23,19 +23,26 @@
         <div class="senha-display">
             <span class="section-title d-block">Senha atual</span>
 
-            <h1 th:text="${currentDisplay}">
-                0
+            <h1 th:text="${senhaAtual}">
+                -
             </h1>
         </div>
 
-        <form th:action="@{/atendente/gerar}" method="post">
+        <div class="d-grid gap-3">
+            <form th:action="@{/atendente/gerar/normal}" method="post">
+                <button type="submit"
+                        class="btn btn-success btn-lg w-100">
+                    Gerar Senha Normal
+                </button>
+            </form>
 
-            <button type="submit"
-                    class="btn btn-success btn-lg w-100">
-                Gerar Nova Senha
-            </button>
-
-        </form>
+            <form th:action="@{/atendente/gerar/prioritaria}" method="post">
+                <button type="submit"
+                        class="btn btn-danger btn-lg w-100">
+                    Gerar Senha Prioritária
+                </button>
+            </form>
+        </div>
 
         <hr>
 

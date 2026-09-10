@@ -23,8 +23,8 @@
         <div class="senha-display destaque-danger">
             <span class="section-title d-block">Senha chamada</span>
 
-            <h1 id="senhaAtual" th:text="${currentDisplay}">
-                0
+            <h1 id="senhaAtual" th:text="${senhaAtual}">
+                -
             </h1>
         </div>
 
@@ -35,9 +35,9 @@
             </h4>
 
             <ul id="historico">
-                <li th:each="senha : ${history}"
+                <li th:each="senha : ${historico}"
                     th:text="'Senha: ' + ${senha}">
-                    Senha: 0
+                    Senha: -
                 </li>
             </ul>
 
@@ -46,22 +46,21 @@
     </div>
 </div>
 
-<script th:inline="javascript">
-    // Atualização automática via polling na API REST (/api/senha).
-    // Resolve a limitação do Display.razor original, que era renderizado
-    // apenas uma vez no servidor e não atualizava sozinho quando uma nova
-    // senha era chamada em outra sessão.
+<script>
+    // Atualiza o painel automaticamente consultando a API REST.
     async function atualizarPainel() {
         try {
-            const resp = await fetch('/api/senha');
+            const resp = await fetch('/api/senhas');
             if (!resp.ok) return;
+
             const data = await resp.json();
 
-            document.getElementById('senhaAtual').textContent = data.currentTicket;
+            document.getElementById('senhaAtual').textContent = data.senhaAtual;
 
             const lista = document.getElementById('historico');
             lista.innerHTML = '';
-            data.history.slice().reverse().forEach(function (senha) {
+
+            data.historico.slice().reverse().forEach(function (senha) {
                 const li = document.createElement('li');
                 li.textContent = 'Senha: ' + senha;
                 lista.appendChild(li);
@@ -71,6 +70,7 @@
         }
     }
 
+    atualizarPainel();
     setInterval(atualizarPainel, 2000);
 </script>
 
