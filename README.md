@@ -1,3 +1,3 @@
 Leonardo Prado Pessoni
 Vinicius Souza
-Riciotti 
+Riciotti Pruinelli Neto
